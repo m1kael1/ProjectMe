@@ -1,11 +1,12 @@
 "use client"
 
 import { useProject } from '@/hooks/use-project'
+import { usePbAuth } from '@/providers/auth-provider'
 import { useParams, useRouter } from 'next/navigation'
 import { PropsWithChildren, useEffect } from 'react'
 
 export const AuthMiddleware = (props: PropsWithChildren) => {
-  const currentUser = localStorage.getItem("pocketbase_auth")
+  const currentUser = usePbAuth().user
   const router = useRouter()
 
   useEffect(() => {
@@ -20,13 +21,13 @@ export const AuthMiddleware = (props: PropsWithChildren) => {
 }
 
 export const ProjectMiddleware = (props: PropsWithChildren) => {
-  const currentUser = JSON.parse(localStorage.getItem("pocketbase_auth") as string)
+  const currentUser = usePbAuth().user
   const { id } = useParams()
   const { projectContributors } = useProject({ projectId: id as string })
   const router = useRouter()
 
   if (projectContributors.length > 0) {
-    const isContributor = projectContributors.filter((contributor) => contributor.id === currentUser?.model?.id)[0]
+    const isContributor = projectContributors.filter((contributor) => contributor.id === currentUser?.id)[0]
     console.log(isContributor)
     if (!isContributor) {
       router.push("/404")
