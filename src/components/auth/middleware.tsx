@@ -2,36 +2,41 @@
 
 import { useProject } from '@/hooks/use-project'
 import { useParams, useRouter } from 'next/navigation'
-import { PropsWithChildren, useEffect } from 'react'
+import { PropsWithChildren, } from 'react'
 
 export const AuthMiddleware = ({ children }: PropsWithChildren) => {
-  const currentUser = JSON.parse(localStorage.getItem("pocketbase_auth") as string)
   const router = useRouter()
 
-  useEffect(() => {
+  try {
+    const currentUser = JSON.parse(localStorage.getItem("pocketbase_auth") as string)
     if (!currentUser.model) {
-      router.push("/signin")
+      throw new Error("You are not logged in")
     }
-  })
-
+  } catch (e) {
+    router.push("/signin")
+  }
   return (
     children
   )
 }
 
 export const ProjectMiddleware = ({ children }: PropsWithChildren) => {
-  const currentUser = JSON.parse(localStorage.getItem("pocketbase_auth") as string)
+  const router = useRouter()
   const { id } = useParams()
   const { projectContributors } = useProject({ projectId: id as string })
-  const router = useRouter()
 
-  if (projectContributors.length > 0 && currentUser) {
-    const isContributor = projectContributors.filter((contributor) => contributor.id === currentUser.model.id)[0]
-
-    if (!isContributor) {
-      router.push("/404")
+  try {
+    const currentUser = JSON.parse(localStorage.getItem("pocketbase_auth") as string)
+    if (projectContributors.length > 0 && currentUser) {
+      const isContributor = projectContributors.filter((contributor) => contributor.id === currentUser.model.id)[0]
+      if (!isContributor) {
+        throw new Error("You are not a contributor of this project")
+      }
     }
+  } catch (e) {
+    router.push("/404")
   }
+
   return (
     children
   )
