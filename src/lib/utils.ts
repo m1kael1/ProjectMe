@@ -20,7 +20,7 @@ import {
 } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { twMerge } from "tailwind-merge";
-import { Planner } from "@/models/Planner.model";
+import { Planner } from "@/models/planner.model";
 import { client } from "@/db/client";
 
 export function cn(...inputs: ClassValue[]) {
