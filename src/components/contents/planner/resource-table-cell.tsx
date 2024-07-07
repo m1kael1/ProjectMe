@@ -16,8 +16,6 @@ const ResourceTableCell: FC<ResourceTableCellProps> = ({
   ...props
 }) => {
 
-  console.log(resourceItem);
-
   return (
     <TableCell className={cn(className, "sticky left-0 z-10 border-y bg-background ")} {...props}>
       <div className="flex items-center space-x-4 ">

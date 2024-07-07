@@ -58,12 +58,19 @@ export const useProject = ({
 
   useEffect(() => {
     if (currentUserId) {
-      getProjectsUser(currentUserId as string);
+      if (!projects[0]) {
+        getProjectsUser(currentUserId as string);
+      }
     }
 
     if (projectId) {
-      getContributorsOnProject(projectId as string);
-      getProjectDetails(projectId as string);
+      if (!projectContributors[0]) {
+        getContributorsOnProject(projectId as string);
+      }
+
+      if (!projectDetails) {
+        getProjectDetails(projectId as string);
+      }
     }
   }, [currentUserId, projectId]);
 

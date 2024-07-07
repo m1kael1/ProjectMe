@@ -16,7 +16,6 @@ const useDiscussion = ({
   discussionId?: string;
   projectId?: string;
 }) => {
-  // const [discussion, setDiscussion] = useState<DiscussionDetails>();
   const {
     discussionDetails,
     discussions,
@@ -24,9 +23,10 @@ const useDiscussion = ({
     setDiscussionDetails
   } = useStore(discussionStore);
   const { comments, setComments, deleteComment } = useStore(commentStore);
-  // const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getDiscussionDetails = async (discussionId: string) => {
+    setIsLoading(true);
     try {
       const { discussionDetails, comments } = await getDiscussionById(
         discussionId
@@ -35,15 +35,21 @@ const useDiscussion = ({
       setComments(comments);
     } catch (error: any) {
       console.log(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const getListDiscussionProject = async (projectId: string) => {
+    setIsLoading(true);
     try {
       const discussions = await getDiscussionByProjectId(projectId);
+      if (!discussions) throw new Error("Discussion record not found");
       setDiscussions(discussions);
     } catch (error: any) {
       console.log(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -56,7 +62,7 @@ const useDiscussion = ({
     }
   }, [discussionId, projectId]);
 
-  return { discussionDetails, comments, discussions, deleteComment };
+  return { discussionDetails, comments, discussions, deleteComment, isLoading };
 };
 
 export default useDiscussion;

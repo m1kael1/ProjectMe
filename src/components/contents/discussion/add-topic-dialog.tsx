@@ -77,9 +77,9 @@ export function AddTopicDialog() {
 
   return (
     <Dialog open={isOpened} onOpenChange={setIsOpened}>
-      <NbVariant className='rounded-md mr-1'>
+      <NbVariant className='rounded-md mr-1 '>
         <DialogTrigger asChild>
-          <Button variant="outline" className="w-full ">
+          <Button variant="outline" className="w-full min-w-72 lg:max-w-72 ">
             <Plus className="w-4 h-4 mr-2" /> Create new topic
           </Button>
         </DialogTrigger>

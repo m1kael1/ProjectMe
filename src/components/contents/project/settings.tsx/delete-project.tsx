@@ -34,6 +34,9 @@ export const DeleteProject = ({ projectId }: DeleteProjectProps) => {
           error: "Failed deleting project",
         },
       );
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1000);
     });
   }
 

@@ -8,7 +8,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { client } from "../db/client"
 import type { AuthProviderInfo, RecordModel as PbRecord } from "pocketbase";
 
@@ -36,30 +36,32 @@ const AuthWrapper: FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<PbUser | null>(null);
   const [googleAuthProvider, setGoogleAuthProvider] = useState<AuthProviderInfo | null>(null);
   const [githubAuthProvider, setGithubAuthProvider] = useState<AuthProviderInfo | null>(null);
+  const pathname = usePathname();
+
 
   useEffect(() => {
     const initAuth = async () => {
-      const authMethods = await client
-        .collection("users")
-        .listAuthMethods()
-        .then((methods) => methods)
-        .catch((err) => {
-          console.error(err);
-        });
-
-      if (authMethods)
-        for (const provider of authMethods.authProviders) {
-          if (provider.name === "google") setGoogleAuthProvider(provider);
-          if (provider.name === "github") setGithubAuthProvider(provider);
-        }
+      if (pathname === "/signin") {
+        const authMethods = await client
+          .collection("users")
+          .listAuthMethods()
+          .then((methods) => methods)
+          .catch((err) => {
+            console.error(err);
+          });
+        if (authMethods)
+          for (const provider of authMethods.authProviders) {
+            if (provider.name === "google") setGoogleAuthProvider(provider);
+            if (provider.name === "github") setGithubAuthProvider(provider);
+          }
+      }
     };
+
 
     initAuth();
 
-    console.log(client.authStore.model)
-
     if (client.authStore.model) setUserData(client.authStore.model as PbRecord);
-  }, []);
+  }, [pathname]);
 
   const setUserData = (pbUser: PbRecord) => {
     const { id, name, email, username, avatarUrl } = pbUser;

@@ -10,7 +10,6 @@ import {
   BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
 import { EditProjectForm } from "@/components/contents/project/settings.tsx/edit-project-form";
-import { ListContributors } from "@/components/contents/project/settings.tsx/list-contributors";
 
 type Props = {
   params: {
@@ -18,9 +17,9 @@ type Props = {
   }
 }
 
-export default function AccountPage(props: Props) {
+export default function ProjectSettings(props: Props) {
   return (
-    <ContentLayout title="Account">
+    <ContentLayout title="Project Settings">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>

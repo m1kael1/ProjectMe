@@ -12,7 +12,7 @@ export const Timeline: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   return (
     <TableHeader>
       <TableRow className="bg-background">
-        <TableHead ></TableHead>
+        <TableHead></TableHead>
         {timeLabels.map((label, index) => (
           <TableHead
             key={index}

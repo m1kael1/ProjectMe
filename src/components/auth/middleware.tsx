@@ -23,19 +23,19 @@ export const AuthMiddleware = ({ children }: PropsWithChildren) => {
 export const ProjectMiddleware = ({ children }: PropsWithChildren) => {
   const router = useRouter()
   const { id } = useParams()
-  const { projectContributors } = useProject({ projectId: id as string })
+  // const { projectContributors } = useProject({ projectId: id as string })
 
-  try {
-    const currentUser = JSON.parse(localStorage.getItem("pocketbase_auth") as string)
-    if (projectContributors.length > 0 && currentUser) {
-      const isContributor = projectContributors.filter((contributor) => contributor.id === currentUser.model.id)[0]
-      if (!isContributor) {
-        throw new Error("You are not a contributor of this project")
-      }
-    }
-  } catch (e) {
-    router.push("/404")
-  }
+  // try {
+  //   const currentUser = JSON.parse(localStorage.getItem("pocketbase_auth") as string)
+  //   if (projectContributors.length > 0 && currentUser) {
+  //     const isContributor = projectContributors.filter((contributor) => contributor.id === currentUser.model.id)[0]
+  //     if (!isContributor) {
+  //       throw new Error("You are not a contributor of this project")
+  //     }
+  //   }
+  // } catch (e) {
+  //   router.push("/404")
+  // }
 
   return (
     children

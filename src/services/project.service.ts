@@ -170,7 +170,7 @@ const deleteProject = (projectId: string) => {
         .collection("projects")
         .delete(projectId)
         .then((result) => {
-          location.href = "/projects";
+          // location.href = "/projects";
           resolve(result);
         });
     });

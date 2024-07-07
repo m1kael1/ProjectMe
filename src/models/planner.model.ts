@@ -29,7 +29,9 @@ export const createPlannerSchema = z
       .max(50, { message: "Title is too long" }),
     start: z.date(),
     end: z.date(),
-    resourceId: z.array(z.string()),
+    resourceId: z.array(z.string()).min(1, {
+      message: "At least one resource is required"
+    }),
     notes: z.string().optional(),
     link: z.string().optional()
   })

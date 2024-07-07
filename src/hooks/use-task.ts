@@ -1,4 +1,5 @@
-import { Task } from "@/models";
+"use client";
+
 import { getAlltasksByProjectId } from "@/services/task.service";
 import { taskStore } from "@/store/task-store";
 import { useEffect } from "react";

@@ -4,9 +4,8 @@ import { Motion } from '@/components/animate/motion'
 import { TextMotion } from '@/components/animate/text-motion'
 import { Button } from '@/components/ui/button'
 import { client } from '@/db/client'
-import { fromBottom, fromLeft, fromTop } from '@/lib/motion/variants'
+import { fromTop } from '@/lib/motion/variants'
 import { usePbAuth } from '@/providers/auth-provider'
-import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 import type { AuthProviderInfo, RecordModel as PbRecord } from "pocketbase";
@@ -49,14 +48,9 @@ export const SigninSection = () => {
       code,
       localAuthProvider.codeVerifier,
       redirectUrl,
-
     )
       .then(async (response) => {
         const user = await client.collection("users").getOne(response.record.id);
-        console.log(user);
-        console.log(response.meta);
-        console.log(response.record.id);
-
         // skip profile updation if user already exists or user data from OAuth providers haven't changed
         if (
           user.name &&
@@ -106,3 +100,5 @@ export const SigninSection = () => {
     </div>
   )
 }
+
+export default SigninSection

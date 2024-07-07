@@ -92,6 +92,9 @@ const AddPlannerDialog: React.FC = () => {
             resources: values.resourceId
           }
         ).then((result) => {
+          client.collection("projects").update(id as string, {
+            "planners+": [result.id]
+          })
           values.resourceId.forEach((resourceId: string, index: number) => {
             plannerByResource = [newPlanner(result.id, resourceId), ...plannerByResource];
             if (values.resourceId.length === index + 1) {

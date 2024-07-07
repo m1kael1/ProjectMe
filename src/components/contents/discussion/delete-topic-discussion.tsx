@@ -10,7 +10,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import { DiscussionDetails, deleteDiscussionById } from "@/services/discussion.service"
+import { deleteDiscussionById } from "@/services/discussion.service"
 import { useRouter } from "next/navigation"
 import { useTransition } from "react"
 import { toast } from "sonner"

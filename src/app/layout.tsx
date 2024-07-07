@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
-import AuthWrapper from "@/providers/auth-provider";
+import dynamic from "next/dynamic";
+
+const AuthWrapper = dynamic(() => import("@/providers/auth-provider"), { ssr: false });
 
 // export const metadata: Metadata = {
 //   metadataBase: new URL(

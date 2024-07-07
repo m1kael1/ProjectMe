@@ -9,7 +9,7 @@ async function findTasksByProjectId(projectId: string) {
     expand: "for,project",
     fields: "id,content,expand,columnId",
     filter: `project = "${projectId}"`,
-    keepalive: true
+    keepalive: true,
   });
 
   return tasks;
