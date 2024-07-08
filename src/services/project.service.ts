@@ -121,7 +121,7 @@ const getProjectById = async (projectId: string) => {
 const updateProject = (
   projectData: any,
   projectId: string,
-  setProjectDetails: any,
+  setUpdateProject: (id: string, project: Project) => void,
   contributorsRemove: string[],
   newContributorsAdd: string[]
 ) => {
@@ -149,15 +149,14 @@ const updateProject = (
               });
             });
           }
-
-          setProjectDetails({
+          setUpdateProject(projectId, {
             id: result.id,
             name: result.name,
             tags: result.tags,
             description: result.description,
+            // @ts-ignore
             contributors: result?.expand?.contributors
           });
-          console.log(result);
           resolve(result);
         });
     });

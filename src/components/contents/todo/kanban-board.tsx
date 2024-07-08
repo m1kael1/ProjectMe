@@ -26,6 +26,8 @@ import { Task } from "@/models";
 import { client } from "@/db/client";
 import { useProject } from "@/hooks/use-project";
 import { useParams } from "next/navigation";
+import { useStore } from "zustand";
+import { projectStore } from "@/store/project-store";
 
 const defaultCols = [
   {
@@ -52,7 +54,7 @@ export function KanbanBoard({ tasksProject }: { tasksProject: Task[] }) {
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   const { id } = useParams()
-  const { setProjectDetails, projectDetails } = useProject({ projectId: id as string });
+  const { updateProject } = useStore(projectStore);
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(TouchSensor),
@@ -83,10 +85,12 @@ export function KanbanBoard({ tasksProject }: { tasksProject: Task[] }) {
 
       const progressPercentage = tasks.length > 0 ? (weightedProgress / tasks.length) * 100 : 0;
 
-      setProjectDetails({ ...projectDetails as any, progress: progressPercentage });
 
-      await client.collection("projects").update(projectDetails?.id as string, {
+
+      client.collection("projects").update(id as string, {
         progress: progressPercentage
+      }).then(() => {
+        updateProject(id as string, { progress: progressPercentage })
       });
 
       console.log("Progress: ", progressPercentage)

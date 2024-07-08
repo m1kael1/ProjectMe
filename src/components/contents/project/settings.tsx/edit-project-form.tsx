@@ -17,6 +17,8 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { DeleteProject } from './delete-project'
+import { useStore } from 'zustand'
+import { projectStore } from '@/store/project-store'
 
 type EditProjectFormProps = {
   projectId: string
@@ -25,7 +27,8 @@ type EditProjectFormProps = {
 export const EditProjectForm = (props: EditProjectFormProps) => {
   const { user: currentUser } = usePbAuth()
   const { users: usersList } = useUsers()
-  const { projectDetails, setProjectDetails } = useProject({ projectId: props.projectId });
+  const { projectDetails } = useProject({ projectId: props.projectId });
+  const { updateProject: setUpdateProject } = useStore(projectStore)
   const [isPending, startAddProjectTransition] = useTransition();
 
   const selectUserList = usersList?.map((user: User) => {
@@ -66,7 +69,7 @@ export const EditProjectForm = (props: EditProjectFormProps) => {
       toast.promise(updateProject(
         projectData,
         projectDetails?.id as string,
-        setProjectDetails,
+        setUpdateProject,
         contributorRemove as string[],
         newContributors as string[]),
         {

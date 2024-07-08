@@ -51,16 +51,15 @@ export const useProject = ({
       const projectdetails = await getProjectById(projectId);
       setProjectDetails(projectdetails);
     } catch (error: any) {
-      router.push("/404");
       console.error("Error fetching project:", error.message);
     }
   }
 
   useEffect(() => {
     if (currentUserId) {
-      // if (!projects[0]) {
-      getProjectsUser(currentUserId as string);
-      // }
+      if (!projects[0]) {
+        getProjectsUser(currentUserId as string);
+      }
     }
 
     if (projectId) {
