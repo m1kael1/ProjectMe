@@ -13,9 +13,12 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 import { deleteProject } from "@/services/project.service"
+import { projectStore } from "@/store/project-store"
 import { Trash2 } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { useTransition } from "react"
 import { toast } from "sonner"
+import { useStore } from "zustand"
 
 type DeleteProjectProps = {
   projectId: string
@@ -23,20 +26,22 @@ type DeleteProjectProps = {
 
 export const DeleteProject = ({ projectId }: DeleteProjectProps) => {
   const [isPending, startDeleteProjectTransition] = useTransition();
+  const { deleteProject: removeProject } = useStore(projectStore)
+  const router = useRouter()
 
   async function handleDeleteTask() {
     startDeleteProjectTransition(() => {
       toast.promise(
-        deleteProject(projectId),
+        deleteProject(projectId, removeProject),
         {
           loading: "Deleting project",
           success: "Project deleted",
           error: "Failed deleting project",
         },
       );
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 1000);
+      setTimeout(() => {
+        router.push("/projects")
+      }, 1000);
     });
   }
 

@@ -163,14 +163,17 @@ const updateProject = (
     });
 };
 
-const deleteProject = (projectId: string) => {
+const deleteProject = (
+  projectId: string,
+  removeProject: (id: string) => void
+) => {
   return () =>
     new Promise((resolve) => {
       client
         .collection("projects")
         .delete(projectId)
         .then((result) => {
-          // location.href = "/projects";
+          removeProject(projectId);
           resolve(result);
         });
     });

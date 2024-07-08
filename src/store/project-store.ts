@@ -7,15 +7,22 @@ type ProjectStore = {
   projectContributors: Contributor[];
   setProjects: (projects: ProjectWithContributors[]) => void;
   setProjectContributors: (projectContributors: Contributor[]) => void;
+  deleteProject: (projectId: string) => void;
 };
 
 export const projectStore = create<ProjectStore>((set) => ({
   projects: [],
   projectContributors: [],
-  
+
   setProjects: (projects: ProjectWithContributors[]) =>
     set((state) => ({ ...state, projects: projects })),
 
   setProjectContributors: (projectContributors: Contributor[]) =>
-    set((state) => ({ ...state, projectContributors: projectContributors }))
+    set((state) => ({ ...state, projectContributors: projectContributors })),
+
+  deleteProject: (projectId: string) =>
+    set((state) => ({
+      ...state,
+      projects: state.projects.filter((project) => project.id !== projectId)
+    }))
 }));

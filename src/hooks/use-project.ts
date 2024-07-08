@@ -58,9 +58,9 @@ export const useProject = ({
 
   useEffect(() => {
     if (currentUserId) {
-      if (!projects[0]) {
-        getProjectsUser(currentUserId as string);
-      }
+      // if (!projects[0]) {
+      getProjectsUser(currentUserId as string);
+      // }
     }
 
     if (projectId) {
