@@ -25,12 +25,11 @@ const ProjectCard = (props: ProjectCardProps) => {
   const tagsList = tags?.split("#")
 
   return (
-
     <Link href={`/projects/${id}/dashboard`}  >
-      <NbVariant className='rounded-xl mr-1'>
-        <Card className='h-full w-full'>
+      <NbVariant className='rounded-xl h-full mr-1'>
+        <Card className='h-full w-full flex flex-col justify-between'>
           <CardHeader>
-            <div className='flex gap-2'>
+            <div className='flex gap-2 flex-wrap '>
               {tagsList?.length == 1 && tagsList[0] == "" ?
                 <Badge variant="secondary">No tags</Badge>
                 : tagsList?.map((tag, index) => index != 0 && <Badge key={index} variant="secondary">{tag}</Badge>)}
