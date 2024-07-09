@@ -81,16 +81,16 @@ export const SigninSection = () => {
   }, []);
 
   return (
-    <div className="container relative pb-10">
+    <div className="container pb-10">
       <section className="mx-auto flex max-w-[980px] flex-col items-center gap-2 py-8 md:py-12 md:pb-8 lg:py-24 lg:pb-6">
-        <h1 className="text-center text-3xl font-bold leading-tight tracking-tighter md:text-5xl lg:leading-[1.1]">
+        <h1 className="text-center text-3xl font-bold leading-tight tracking-tighter md:text-5xl lg:leading-[1.1] z-50">
           <TextMotion text='Elevate Your Team’s Productivity' />
         </h1>
-        <span className="max-w-[750px] text-center text-lg font-light text-foreground">
+        <span className="max-w-[750px] text-center text-lg font-light text-foreground z-50">
           <TextMotion text='Join our community and revolutionize the way your team manages projects. Sign up today to get started!' />
         </span>
-        <div className="flex w-full items-center justify-center space-x-4 py-4 md:pb-6">
-          <Motion variants={fromTop}>
+        <div className="flex w-full items-center justify-center space-x-4 py-4 md:pb-6 ">
+          <Motion className='z-50' variants={fromTop}>
             <Button variant="default" onClick={googleSignIn}>
               Get Started with Google
             </Button>
