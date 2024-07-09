@@ -7,7 +7,7 @@ const SigninSection = dynamic(() => import("@/components/auth/signin-section"), 
 export default function SinginPage() {
   return (
     <WelcomeLayout>
-      <Boxes className="opacity-30" />
+      {/* <Boxes className="opacity-30" /> */}
       <SigninSection />
     </WelcomeLayout>
   );
