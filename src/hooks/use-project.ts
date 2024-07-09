@@ -1,5 +1,4 @@
 import { Contributor, Project } from "@/models";
-import { usePbAuth } from "@/providers/auth-provider";
 import {
   ProjectWithContributors,
   getProjectById,
@@ -7,7 +6,6 @@ import {
   getProjectsByUserId
 } from "@/services/project.service";
 import { projectStore } from "@/store/project-store";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useStore } from "zustand";
 
@@ -24,9 +22,10 @@ export const useProject = ({
     Project & { contributors?: Contributor[] }
   >();
 
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   async function getProjectsUser(userId: string) {
+    setIsLoading(true);
     try {
       const projects: ProjectWithContributors[] = await getProjectsByUserId(
         userId
@@ -34,6 +33,8 @@ export const useProject = ({
       setProjects(projects);
     } catch (error: any) {
       console.error("Error fetching projects:", error.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -78,6 +79,7 @@ export const useProject = ({
     projectContributors,
     setProjectContributors,
     projectDetails,
-    setProjectDetails
+    setProjectDetails,
+    isLoading
   };
 };

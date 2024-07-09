@@ -21,6 +21,7 @@ interface PbUser {
 }
 
 interface AuthContextType {
+  isPending: boolean;
   user: PbUser | null;
   googleSignIn: () => void;
   githubSignIn: () => void;
@@ -32,7 +33,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 const AuthWrapper: FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
-
+  const [isPending, setIsPending] = useState<boolean>(true);
   const [user, setUser] = useState<PbUser | null>(null);
   const [googleAuthProvider, setGoogleAuthProvider] = useState<AuthProviderInfo | null>(null);
   const [githubAuthProvider, setGithubAuthProvider] = useState<AuthProviderInfo | null>(null);
@@ -57,8 +58,13 @@ const AuthWrapper: FC<{ children: ReactNode }> = ({ children }) => {
       }
     };
 
-
-    initAuth();
+    try {
+      initAuth();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsPending(false);
+    }
 
     if (client.authStore.model) setUserData(client.authStore.model as PbRecord);
   }, [pathname]);
@@ -92,7 +98,7 @@ const AuthWrapper: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, googleSignIn, githubSignIn, setUserData, signOut }}>
+    <AuthContext.Provider value={{ isPending, user, googleSignIn, githubSignIn, setUserData, signOut }}>
       {children}
     </AuthContext.Provider>
   );

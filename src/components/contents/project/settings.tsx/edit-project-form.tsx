@@ -12,13 +12,14 @@ import { Contributor, User, updateProjectSchema } from '@/models'
 import { usePbAuth } from '@/providers/auth-provider'
 import { updateProject } from '@/services/project.service'
 import { zodResolver } from '@hookform/resolvers/zod'
-import React, { useEffect, useState, useTransition } from 'react'
+import React, { useEffect, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { DeleteProject } from './delete-project'
 import { useStore } from 'zustand'
 import { projectStore } from '@/store/project-store'
+import { Skeleton } from '@/components/ui/skeleton'
 
 type EditProjectFormProps = {
   projectId: string
@@ -26,7 +27,7 @@ type EditProjectFormProps = {
 
 export const EditProjectForm = (props: EditProjectFormProps) => {
   const { user: currentUser } = usePbAuth()
-  const { users: usersList } = useUsers()
+  const { users: usersList, isLoading } = useUsers()
   const { projectDetails } = useProject({ projectId: props.projectId });
   const { updateProject: setUpdateProject } = useStore(projectStore)
   const [isPending, startAddProjectTransition] = useTransition();
@@ -133,7 +134,7 @@ export const EditProjectForm = (props: EditProjectFormProps) => {
                     Contributors
                   </FormLabel>
                   <FormControl>
-                    {
+                    {isLoading ? <Skeleton className="w-full h-8" /> :
                       !usersList ? (
                         <p className="text-sm text-red-500">No contributors found</p>
                       ) : <MultiSelect

@@ -12,7 +12,7 @@ import type { AuthProviderInfo, RecordModel as PbRecord } from "pocketbase";
 
 export const SigninSection = () => {
 
-  const { user, googleSignIn, githubSignIn, setUserData } = usePbAuth();
+  const { isPending, user, googleSignIn, githubSignIn, setUserData } = usePbAuth();
 
   const router = useRouter()
 
@@ -91,8 +91,9 @@ export const SigninSection = () => {
         </span>
         <div className="flex w-full items-center justify-center space-x-4 py-4 md:pb-6 ">
           <Motion className='z-50' variants={fromTop}>
-            <Button variant="default" onClick={googleSignIn}>
-              Get Started with Google
+            <Button disabled={isPending} variant="default" onClick={googleSignIn}>
+              {isPending ? "Loading..."
+                : "Get Started with Google"}
             </Button>
           </Motion>
         </div>

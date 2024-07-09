@@ -8,14 +8,15 @@ import { Fragment } from 'react'
 
 export const ProjectList = () => {
   const { user: currentUser } = usePbAuth()
-  const { projects } = useProject({ currentUserId: currentUser?.id as string })
+  const { projects, isLoading } = useProject({ currentUserId: currentUser?.id as string })
 
   return (
     <Fragment>
-      {projects?.length === 0 ? <div>No projects found</div> :
-        projects?.map((project: any) => {
-          return <ProjectCard key={project.id} {...project} />
-        })
+      {isLoading ? <div>Loading...</div> :
+        projects?.length === 0 ? <div>No projects found</div> :
+          projects?.map((project: any) => {
+            return <ProjectCard key={project.id} {...project} />
+          })
       }
     </Fragment>
   )

@@ -10,7 +10,7 @@ export default function PlaceholderContent({ children, className }: { children?:
           {
             children ?
               children :
-              <div className="flex flex-col relative"><h1 className="font-bold text-lg ">Comming soon</h1> </div>
+              <div className="flex flex-col relative"><h1 className="font-bold text-lg ">Coming Soon</h1> </div>
           }
         </div>
       </CardContent>

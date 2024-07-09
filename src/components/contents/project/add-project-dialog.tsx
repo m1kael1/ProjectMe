@@ -12,6 +12,7 @@ import {
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { MultiSelect } from "@/components/ui/multi-select"
+import { Skeleton } from "@/components/ui/skeleton"
 import { Textarea } from "@/components/ui/textarea"
 import { NbVariant } from "@/components/ui/variant/nb-variant"
 import { useUsers } from "@/hooks/use-users"
@@ -29,7 +30,7 @@ import { useStore } from "zustand"
 
 export function AddProjectDialog() {
   const { user: currentUser } = usePbAuth()
-  const { users: usersList } = useUsers()
+  const { users: usersList, isLoading } = useUsers()
   const { projects, setProjects } = useStore(projectStore);
 
   const [isPending, startAddProjectTransition] = useTransition();
@@ -136,8 +137,8 @@ export function AddProjectDialog() {
                   <FormLabel>
                     Contributors
                   </FormLabel>
-                  <FormControl>
-                    <MultiSelect
+                  <FormControl>{
+                    isLoading ? <Skeleton className="w-full h-8" /> : <MultiSelect
                       options={contributorsList as any}
                       onValueChange={field.onChange}
                       defaultValue={field.value}
@@ -147,6 +148,8 @@ export function AddProjectDialog() {
                       maxCount={3}
                     // {...field}
                     />
+                  }
+
                   </FormControl>
                   <FormMessage />
                 </FormItem>

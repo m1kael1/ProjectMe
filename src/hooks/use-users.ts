@@ -1,5 +1,4 @@
 import { client } from "@/db/client";
-import { User } from "@/models";
 import { userStore } from "@/store/user-store";
 import { useEffect, useState } from "react";
 import { useStore } from "zustand";
@@ -7,18 +6,27 @@ import { useStore } from "zustand";
 export const useUsers = () => {
   // const [users, setUsers] = useState<User[]>([]);
   const { users, setUsers } = useStore(userStore);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function getAllUsers() {
-    const users = await client.collection("users").getFullList({
-      sort: "-created",
-      cache: "no-cache",
-      fields: "id,email,avatar,name",
-      keepalive: true,
-      expand: "projects"
-    });
+    setIsLoading(true);
 
-    // @ts-ignore
-    setUsers(users);
+    try {
+      const users = await client.collection("users").getFullList({
+        sort: "-created",
+        cache: "no-cache",
+        fields: "id,email,avatar,name",
+        keepalive: true,
+        expand: "projects"
+      });
+
+      // @ts-ignore
+      setUsers(users);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -27,5 +35,5 @@ export const useUsers = () => {
     }
   }, []);
 
-  return { users };
+  return { users, isLoading };
 };
