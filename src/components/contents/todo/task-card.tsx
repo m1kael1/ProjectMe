@@ -25,6 +25,7 @@ export interface Task {
 interface TaskCardProps {
   task: Task;
   isOverlay?: boolean;
+  isCompleted?: boolean;
 }
 
 export type TaskType = "Task";
@@ -32,9 +33,10 @@ export type TaskType = "Task";
 export interface TaskDragData {
   type: TaskType;
   task: Task;
+
 }
 
-export function TaskCard({ task, isOverlay }: TaskCardProps) {
+export function TaskCard({ task, isOverlay, isCompleted }: TaskCardProps) {
   const { deleteTask } = useStore(taskStore)
 
   const {
@@ -65,7 +67,7 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
       dragging: {
         over: "ring-2 opacity-30",
         overlay: "ring-2 ring-primary",
-      },
+      }
     },
   });
 
@@ -78,8 +80,8 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
           dragging: isOverlay ? "overlay" : isDragging ? "over" : undefined,
         })}
       >
-        <CardHeader className="px-3 py-3 space-between flex flex-row border-b-2 border-secondary relative">
-          <Button
+        <CardHeader className="px-3 py-3 space-between flex flex-row border-b-2 border-secondary relative">{
+          isCompleted ? <div className="bg-green-500 text-white text-xs px-2 py-1 h-fit rounded"> Completed</div> : <Button
             variant={"ghost"}
             {...attributes}
             {...listeners}
@@ -88,6 +90,9 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
             <span className="sr-only">Move task</span>
             <GripVertical />
           </Button>
+
+        }
+
           <TooltipProvider>
             <Tooltip delayDuration={100}>
               <TooltipTrigger asChild>

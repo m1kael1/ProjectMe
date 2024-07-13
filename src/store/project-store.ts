@@ -4,16 +4,19 @@ import { create } from "zustand";
 
 type ProjectStore = {
   projects: ProjectWithContributors[];
+  projectDetails?: ProjectWithContributors;
   projectContributors: Contributor[];
   setProjects: (projects: ProjectWithContributors[]) => void;
   setProjectContributors: (projectContributors: Contributor[]) => void;
   deleteProject: (projectId: string) => void;
   updateProject: (projectId: string, data: any) => void;
+  setProjectDetails: (projectDetails: ProjectWithContributors) => void;
 };
 
 export const projectStore = create<ProjectStore>((set) => ({
   projects: [],
   projectContributors: [],
+  projectDetails: undefined,
 
   setProjects: (projects: ProjectWithContributors[]) =>
     set((state) => ({ ...state, projects: projects })),
@@ -33,5 +36,8 @@ export const projectStore = create<ProjectStore>((set) => ({
       projects: state.projects.map((project) =>
         project.id === projectId ? { ...project, ...data } : project
       )
-    }))
+    })),
+
+  setProjectDetails: (projectDetails: ProjectWithContributors) =>
+    set((state) => ({ ...state, projectDetails: projectDetails }))
 }));

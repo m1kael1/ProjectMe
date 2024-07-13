@@ -6,7 +6,8 @@ const findProjectDetails = async (projectId: string) => {
   const contributors = await record.getOne(projectId, {
     cache: "no-cache",
     expand: "contributors",
-    fields: "id,name,description,tags,progress,createdBy,expand",
+    fields:
+      "id,name,description,tags,progress,createdBy,expand,created,updated",
     keepalive: true
   });
 

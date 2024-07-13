@@ -12,13 +12,15 @@ type Planner = {
 
 type PlannerStore = {
   listPlanners: Planner[];
+  plannersUser: Planner[];
   setListPlanners: (planners: Planner[]) => void;
-
   deletePlanner: (plannerId: string) => void;
+  setPlannersUser: (planners: Planner[]) => void;
 };
 
 export const plannerStore = create<PlannerStore>((set) => ({
   listPlanners: [],
+  plannersUser: [],
 
   setListPlanners: (planners: Planner[]) =>
     set((state) => ({ ...state, listPlanners: planners })),
@@ -29,5 +31,8 @@ export const plannerStore = create<PlannerStore>((set) => ({
       listPlanners: state.listPlanners.filter(
         (planner) => planner.id !== plannerId
       )
-    }))
+    })),
+
+  setPlannersUser: (planners: Planner[]) =>
+    set((state) => ({ ...state, plannersUser: planners }))
 }));

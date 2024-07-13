@@ -16,11 +16,17 @@ export const useProject = ({
   currentUserId?: string;
   projectId?: string;
 }) => {
-  const { projects, setProjects, setProjectContributors, projectContributors } =
-    useStore(projectStore);
-  const [projectDetails, setProjectDetails] = useState<
-    Project & { contributors?: Contributor[] }
-  >();
+  const {
+    projects,
+    setProjects,
+    setProjectContributors,
+    projectContributors,
+    setProjectDetails,
+    projectDetails
+  } = useStore(projectStore);
+  // const [projectDetails, setProjectDetails] = useState<
+  //   Project & { contributors?: Contributor[] }
+  // >();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -39,20 +45,27 @@ export const useProject = ({
   }
 
   async function getContributorsOnProject(projectId: string) {
+    setIsLoading(true);
     try {
       const contributors = await getProjectContributors(projectId);
       setProjectContributors(contributors);
     } catch (error: any) {
       console.error("Error fetching contributors:", error.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   async function getProjectDetails(projectId: string) {
+    setIsLoading(true);
     try {
       const projectdetails = await getProjectById(projectId);
+      // @ts-ignore
       setProjectDetails(projectdetails);
     } catch (error: any) {
       console.error("Error fetching project:", error.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -64,13 +77,8 @@ export const useProject = ({
     }
 
     if (projectId) {
-      if (!projectContributors[0]) {
-        getContributorsOnProject(projectId as string);
-      }
-
-      if (!projectDetails) {
-        getProjectDetails(projectId as string);
-      }
+      getContributorsOnProject(projectId as string);
+      getProjectDetails(projectId as string);
     }
   }, [currentUserId, projectId]);
 

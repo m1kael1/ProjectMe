@@ -15,7 +15,6 @@ import ResourceTableCell from "./resource-table-cell";
 import { calculateNewDates, filterPlanners } from "@/lib/utils";
 import DropTableCell from "./drop-table-cell";
 import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
-import { NbVariant } from "@/components/ui/variant/nb-variant";
 import { usePlanner } from "@/hooks/use-planner";
 import { useParams } from "next/navigation";
 
@@ -130,8 +129,6 @@ const CalendarContent: React.FC<CalendarContentProps> = ({ ...props }) => {
 
                         <CardPlanner
                           planner={planner}
-                          columnIndex={index}
-                          resourceId={resource.id}
                           key={index}
                         />
                       ))}

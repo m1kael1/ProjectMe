@@ -5,10 +5,12 @@ import { useStore } from "zustand";
 
 type UsePlannerProps = {
   projectId: string;
+  userId?: string;
 };
 
-export const usePlanner = ({ projectId }: UsePlannerProps) => {
-  const { listPlanners, setListPlanners } = useStore(plannerStore);
+export const usePlanner = ({ projectId, userId }: UsePlannerProps) => {
+  const { listPlanners, setListPlanners, plannersUser, setPlannersUser } =
+    useStore(plannerStore);
 
   const getPlanners = async (projectId: string) => {
     const res = await client.collection("planners").getFullList({
@@ -42,9 +44,20 @@ export const usePlanner = ({ projectId }: UsePlannerProps) => {
     });
   };
 
+  const getPlannersByResource = async (userId: string) => {
+    const res = await client
+      .collection("planners")
+      .getFullList({ filter: `resources="${userId}"` });
+
+    console.log(res);
+  };
+
   useEffect(() => {
     getPlanners(projectId);
-  }, [projectId]);
+    if (userId) {
+      getPlannersByResource(userId);
+    }
+  }, [projectId, userId]);
 
   return {
     listPlanners,

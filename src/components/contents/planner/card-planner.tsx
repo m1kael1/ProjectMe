@@ -25,12 +25,11 @@ import { useState } from "react";
 
 interface PlannerProps {
   planner: PlannerType;
-  resourceId: string;
-  columnIndex: number;
+  plannerActive?: boolean;
 }
 
 const CardPlanner: React.FC<PlannerProps> = ({
-  planner,
+  planner, plannerActive
 }) => {
   const { id } = useParams()
   const { user: currentUser } = usePbAuth();
@@ -40,8 +39,16 @@ const CardPlanner: React.FC<PlannerProps> = ({
   const [isOpened, setIsOpened] = useState<boolean>()
 
   return (
-    <NbVariant className="rounded-xl" >
-      <Card className="h-full">
+    <NbVariant className="rounded-xl h-full relative">
+      {
+        plannerActive ? <span className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
+          In Progress
+        </span> : null
+      }
+      <Card className={cn(
+        "h-full",
+        plannerActive ? "border-2 border-green-500" : "border-2 border-transparent"
+      )}>
         <CardHeader className="flex flex-row items-center justify-between p-1">
           <Dialog open={isOpened}>
             <DialogTrigger>
@@ -95,7 +102,7 @@ const CardPlanner: React.FC<PlannerProps> = ({
         >
           <div className="flex flex-col items-center gap-2 text-xs h-full justify-center">
             <div className="font-bold line-clamp-2">{planner.title}</div>
-            <div className="line-clamp-3">{planner.notes}</div>
+            <div className="line-clamp-2">{planner.notes}</div>
             <div>
               {format(new Date(planner.start), "kk:mm")} -{" "}
               {format(new Date(planner.end), "kk:mm")}

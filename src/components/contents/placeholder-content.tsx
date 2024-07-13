@@ -6,7 +6,7 @@ export default function PlaceholderContent({ children, className }: { children?:
   return (
     <Card className="rounded-lg border-none mt-6">
       <CardContent className="p-6 ">
-        <div className={cn("flex min-h-[calc(100vh-56px-64px-20px-24px-56px-48px)]  lg:h-[calc(100vh-56px-64px-20px-24px-56px-48px)] overflow-hidden", className)}>
+        <div className={cn("flex min-h-[calc(100vh-56px-64px-20px-24px-56px-48px)]  lg:h-[calc(100vh-56px-64px-20px-24px-56px-48px)] ", className)}>
           {
             children ?
               children :
