@@ -41,9 +41,9 @@ export const DashboardContent = () => {
   return (<>{
     isLoading ? <DashboardSkeleton /> : <section className="w-full flex flex-col justify-space-between h-full overflow-auto">
       <div>
-        <div className="flex justify-between">
+        <div className="md:flex justify-between">
           <h1 className="text-3xl font-bold">{projectDetails?.name}</h1>
-          <p className="mt-4">Last updated: {projectDetails?.updated.toDateString()}</p>
+          <p className="my-4">Last updated: {projectDetails?.updated.toDateString()}</p>
         </div>
         <div>
           <div className="mt-2"><TagsBadge tags={projectDetails?.tags} /></div>
@@ -81,15 +81,16 @@ export const DashboardContent = () => {
         <ScrollArea >
           <div className="flex gap-4 ">
             {
-              filterTaks.map((task) => {
-                const isCompleted = task.columnId === "done"
-                return (
-                  <div key={task.id} className="w-52 mb-2">
-                    <TaskCard task={task} isCompleted={isCompleted} />
-                  </div>
-                )
-              }
-              )}
+              filterTaks.length === 0 ? <>No Task</> :
+                filterTaks.map((task) => {
+                  const isCompleted = task.columnId === "done"
+                  return (
+                    <div key={task.id} className="w-52 mb-2">
+                      <TaskCard task={task} isCompleted={isCompleted} />
+                    </div>
+                  )
+                }
+                )}
           </div>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>

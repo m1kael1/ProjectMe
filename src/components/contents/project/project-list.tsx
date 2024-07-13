@@ -12,7 +12,7 @@ export const ProjectList = () => {
 
   return (
     <Fragment>
-      {isLoading ? <div>Loading...</div> :
+      {isLoading ? <div>Waiting for projects...</div> :
         projects?.length === 0 ? <div>No projects found</div> :
           projects?.map((project: any) => {
             return <ProjectCard key={project.id} {...project} />
