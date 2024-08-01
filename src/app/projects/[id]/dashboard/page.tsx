@@ -10,7 +10,6 @@ import {
   BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
 import { DashboardContent } from "@/components/contents/dashboard/dashboard";
-import { Toaster } from "sonner";
 
 export default function DashboardPage() {
 
@@ -32,7 +31,6 @@ export default function DashboardPage() {
       <PlaceholderContent>
         <DashboardContent />
       </PlaceholderContent>
-      {/* <Toaster position='top-right' /> */}
     </ContentLayout>
   );
 }

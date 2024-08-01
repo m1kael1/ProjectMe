@@ -9,8 +9,7 @@ type UsePlannerProps = {
 };
 
 export const usePlanner = ({ projectId, userId }: UsePlannerProps) => {
-  const { listPlanners, setListPlanners, plannersUser, setPlannersUser } =
-    useStore(plannerStore);
+  const { listPlanners, setListPlanners } = useStore(plannerStore);
 
   const getPlanners = async (projectId: string) => {
     const res = await client.collection("planners").getFullList({
@@ -44,19 +43,8 @@ export const usePlanner = ({ projectId, userId }: UsePlannerProps) => {
     });
   };
 
-  const getPlannersByResource = async (userId: string) => {
-    const res = await client
-      .collection("planners")
-      .getFullList({ filter: `resources="${userId}"` });
-
-    console.log(res);
-  };
-
   useEffect(() => {
     getPlanners(projectId);
-    if (userId) {
-      getPlannersByResource(userId);
-    }
   }, [projectId, userId]);
 
   return {

@@ -22,7 +22,7 @@ import { createProject } from "@/services/project.service"
 import { projectStore } from "@/store/project-store"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Plus } from "lucide-react"
-import { useState, useTransition } from "react"
+import { useMemo, useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
@@ -138,16 +138,17 @@ export function AddProjectDialog() {
                     Contributors
                   </FormLabel>
                   <FormControl>{
-                    isLoading ? <Skeleton className="w-full h-8" /> : <MultiSelect
-                      options={contributorsList as any}
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      placeholder="Select contributors"
-                      variant="inverted"
-                      animation={2}
-                      maxCount={3}
-                    // {...field}
-                    />
+                    isLoading ? <Skeleton className="w-full h-8" /> :
+                      <MultiSelect
+                        options={contributorsList as any}
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        placeholder="Select contributors"
+                        variant="inverted"
+                        animation={2}
+                        maxCount={3}
+                      // {...field}
+                      />
                   }
 
                   </FormControl>
@@ -177,4 +178,3 @@ export function AddProjectDialog() {
     </Dialog>
   )
 }
-

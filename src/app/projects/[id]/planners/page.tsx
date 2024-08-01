@@ -9,7 +9,6 @@ import { useProject } from '@/hooks/use-project'
 import { Resource } from '@/models'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { useEffect } from 'react'
 
 export default function PlannersPage() {
   const { id } = useParams()
@@ -57,18 +56,3 @@ export default function PlannersPage() {
     </ContentLayout>
   )
 }
-
-const Planners = [{
-  id: '1',
-  title: "Planner 1",
-  start: new Date(),
-  end: new Date(),
-  resourceId: "npkzk1htdml0fuc",
-}, {
-  id: '2',
-  title: "Planner 2",
-  start: new Date(),
-  end: new Date(),
-  resourceId: "sbls8brcdgzndos",
-}]
-

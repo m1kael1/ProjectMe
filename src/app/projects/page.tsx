@@ -17,6 +17,5 @@ export default function ListProjectsPage() {
         </PlaceholderContent>
       </ContentLayout>
     </AuthMiddleware>
-
   );
 }

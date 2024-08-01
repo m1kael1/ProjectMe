@@ -2,7 +2,6 @@
 
 import { Motion } from '@/components/animate/motion'
 import { TextMotion } from '@/components/animate/text-motion'
-import { Boxes } from '@/components/ui/background-boxes';
 import { Button } from '@/components/ui/button'
 import { fromLeft } from '@/lib/motion/variants'
 import { ArrowRightIcon } from 'lucide-react'

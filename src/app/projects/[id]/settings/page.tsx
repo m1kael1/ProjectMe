@@ -41,7 +41,6 @@ export default function ProjectSettings(props: Props) {
       </Breadcrumb>
       <PlaceholderContent>
         <EditProjectForm projectId={props.params.id} />
-        {/* <ListContributors /> */}
       </PlaceholderContent>
     </ContentLayout>
   );

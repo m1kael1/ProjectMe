@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, FC } from "react";
 import { PlannerService, ResourceService } from "../services";
-import { Planner, Contributor, Resource, User } from "../models";
+import { Planner, Contributor, Resource } from "../models";
 
 interface DataContextType {
   Planners: Planner[];

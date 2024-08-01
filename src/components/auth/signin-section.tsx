@@ -11,9 +11,7 @@ import React, { useEffect } from 'react'
 import type { AuthProviderInfo, RecordModel as PbRecord } from "pocketbase";
 
 export const SigninSection = () => {
-
-  const { isPending, user, googleSignIn, githubSignIn, setUserData } = usePbAuth();
-
+  const { isPending, user, googleSignIn, setUserData } = usePbAuth();
   const router = useRouter()
 
   useEffect(() => {
@@ -35,7 +33,6 @@ export const SigninSection = () => {
     const redirectUrl = `${location.origin}/signin`;
     const code = params.get("code");
 
-    // cancel signin logic if not a redirect
     if (
       !localAuthProvider ||
       !code ||
@@ -51,12 +48,10 @@ export const SigninSection = () => {
     )
       .then(async (response) => {
         const user = await client.collection("users").getOne(response.record.id);
-        // skip profile updation if user already exists or user data from OAuth providers haven't changed
+
         if (
           user.name &&
-          user.avatarUrl &&
-          user.name === response.meta?.name &&
-          user.avatarUrl === response.meta?.avatarUrl
+          user.avatarUrl
         ) {
           storeUserAndRedirect(user);
         } else
@@ -76,7 +71,6 @@ export const SigninSection = () => {
       .catch((err) => {
         console.error(err);
       });
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

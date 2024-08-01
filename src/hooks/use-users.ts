@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useStore } from "zustand";
 
 export const useUsers = () => {
-  // const [users, setUsers] = useState<User[]>([]);
   const { users, setUsers } = useStore(userStore);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

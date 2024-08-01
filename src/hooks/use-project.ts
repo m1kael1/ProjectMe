@@ -1,4 +1,3 @@
-import { Contributor, Project } from "@/models";
 import {
   ProjectWithContributors,
   getProjectById,
@@ -24,9 +23,6 @@ export const useProject = ({
     setProjectDetails,
     projectDetails
   } = useStore(projectStore);
-  // const [projectDetails, setProjectDetails] = useState<
-  //   Project & { contributors?: Contributor[] }
-  // >();
 
   const [isLoading, setIsLoading] = useState(false);
 

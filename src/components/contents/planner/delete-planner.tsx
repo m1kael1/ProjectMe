@@ -47,9 +47,9 @@ export const DeletePlanner = ({ setIsOpened, plannerId }: DeletePlannerProps) =>
   }
 
   return (
-    <AlertDialog>
+    <AlertDialog >
       <AlertDialogTrigger asChild>
-        <Button size="sm" variant="destructive">
+        <Button size="sm" variant="destructive" className="mt-5">
           Remove
           <Trash2 size={16} />
         </Button>

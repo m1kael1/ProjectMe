@@ -22,7 +22,6 @@ interface Props {
 }
 
 export default async function DiscussionsPage(props: Props) {
-
   return (
     <ContentLayout title="Discussions">
       <Breadcrumb>

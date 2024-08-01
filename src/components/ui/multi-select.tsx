@@ -64,6 +64,7 @@ export interface MultiSelectProps
   maxCount?: number;
   asChild?: boolean;
   className?: string;
+  // setQuery: (query: string) => void;
 }
 
 export const MultiSelect = React.forwardRef<
@@ -89,6 +90,8 @@ export const MultiSelect = React.forwardRef<
       React.useState<string[]>(defaultValue);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
     const [isAnimating, setIsAnimating] = React.useState(false);
+
+    console.log("selectedValues", selectedValues);
 
     React.useEffect(() => {
       if (JSON.stringify(selectedValues) !== JSON.stringify(defaultValue)) {
@@ -237,6 +240,9 @@ export const MultiSelect = React.forwardRef<
             <CommandInput
               placeholder="Search..."
               onKeyDown={handleInputKeyDown}
+            // onValueChange={(value) => {
+            //   setQuery(value)
+            // }}
             />
             <CommandList className="max-h-[100px] ">
               <CommandEmpty>No results found.</CommandEmpty>

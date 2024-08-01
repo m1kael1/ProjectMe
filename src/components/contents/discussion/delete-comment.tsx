@@ -9,7 +9,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
 import { deleteCommentById } from "@/services/comment.service"
 import { Trash2 } from "lucide-react"
 import { useTransition } from "react"

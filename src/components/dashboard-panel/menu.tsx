@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useStore } from "zustand";
 import { discussionStore } from "@/store/discussion-store";
+import { usePbAuth } from "@/providers/auth-provider";
 
 interface MenuProps {
   isOpen: boolean | undefined;
@@ -24,6 +25,7 @@ interface MenuProps {
 export function Menu({ isOpen }: MenuProps) {
   const { id }: { id: string } = useParams();
   const { deleteDiscussionDetails } = useStore(discussionStore);
+  const { signOut } = usePbAuth()
 
   const pathname = usePathname();
   const menuList = getMenuList(pathname, id);
@@ -113,7 +115,7 @@ export function Menu({ isOpen }: MenuProps) {
               <Tooltip delayDuration={100}>
                 <TooltipTrigger asChild>
                   <Button
-                    onClick={() => { }}
+                    onClick={() => { signOut() }}
                     variant="outline"
                     className="w-full justify-center h-10 mt-5"
                   >
